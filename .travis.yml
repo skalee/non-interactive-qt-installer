@@ -1,0 +1,7 @@
+language: shell
+
+install:
+  - ./qt_installer.sh
+
+script:
+  - echo "1"
