@@ -4,4 +4,11 @@ install:
   - ./qt_installer.sh
 
 script:
-  - echo "1"
+  - which qmake
+
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode10.2
+      env:
+        - QT_INSTALLER_DOWNLOAD_NAME="qt-unified-mac-x64-online.dmg"
