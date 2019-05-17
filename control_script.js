@@ -50,7 +50,13 @@ Controller.prototype.TargetDirectoryPageCallback = function() {
 
 Controller.prototype.ComponentSelectionPageCallback = function() {
     logCurrentPage()
-    // TODO Select components
+    // Deselect whatever was default, and can be deselected.
+    page().deselectAll()
+
+    InstallComponents.forEach(function(component) {
+        page().selectComponent(component)
+    })
+
     proceed()
 }
 
