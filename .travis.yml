@@ -1,9 +1,13 @@
 language: shell
 
+before_install:
+  - npm install -g jshint
+
 install:
   - ./qt_installer.sh
 
 script:
+  - jshint control_script.js
   - which qmake
 
 matrix:
