@@ -21,7 +21,8 @@ curl -vL --remote-name "${QT_INSTALLER_URL}"
 
 # Run installer
 echo "Installing Qt"
-if [ "$(uname -s)" == "Darwin" ]; then
+
+if [[ "$OSTYPE" == darwin* ]]; then
     QT_MOUNT_POINT="/Volumes/Qt"
 
     echo "Mounting Qt installer image"
