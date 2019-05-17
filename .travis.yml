@@ -17,4 +17,4 @@ matrix:
       env:
         - QT_INSTALLER_DOWNLOAD_NAME="qt-unified-mac-x64-online.dmg"
         - QT_INSTALLER_VARS="${TRAVIS_BUILD_DIR}/ci/vars_mac.js"
-        - PATH="${HOME}/Qt/5.12.3/clang_64/bin:${PATH}"
+        - PATH="/opt/Qt/5.12.3/clang_64/bin:${PATH}"

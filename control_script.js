@@ -44,7 +44,7 @@ Controller.prototype.IntroductionPageCallback = function() {
 /// Set target directory
 Controller.prototype.TargetDirectoryPageCallback = function() {
     logCurrentPage()
-    // TODO Use var
+    page().TargetDirectoryLineEdit.text = InstallPath
     proceed()
 }
 
