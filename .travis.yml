@@ -8,7 +8,7 @@ install:
 
 script:
   - jshint control_script.js
-  - which qmake
+  - qmake --version
 
 matrix:
   include:
@@ -17,3 +17,4 @@ matrix:
       env:
         - QT_INSTALLER_DOWNLOAD_NAME="qt-unified-mac-x64-online.dmg"
         - QT_INSTALLER_VARS="${TRAVIS_BUILD_DIR}/ci/vars_mac.js"
+        - PATH="${HOME}/Qt/5.12.3/clang_64/bin:${PATH}"
