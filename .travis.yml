@@ -1,13 +1,13 @@
 language: shell
 
 before_install:
-  - npm install -g jshint
+  - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then npm install -g jshint ; fi
 
 install:
   - ./qt_installer.sh
 
 script:
-  - jshint control_script.js
+  - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then jshint control_script.js ; fi
   - qmake --version
 
 matrix:
