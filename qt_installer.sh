@@ -11,19 +11,23 @@ QT_INSTALLERS_ROOT_URL="http://download.qt.io/official_releases/online_installer
 QT_INSTALLER_SCRIPT_FILE="${DIR}/control_script.js"
 
 # Inject definitions to the installer script
-echo "Injecting variables to installer control script"
-cat "${QT_INSTALLER_VARS}" | tee -a "${QT_INSTALLER_SCRIPT_FILE}"
+inject_vars()
+{
+    echo "Injecting variables to installer control script"
+    cat "${QT_INSTALLER_VARS}" | tee -a "${QT_INSTALLER_SCRIPT_FILE}"
+}
 
 # Download Qt installer
-echo "Downloading the online installer"
-QT_INSTALLER_URL="${QT_INSTALLERS_ROOT_URL}/${QT_INSTALLER_DOWNLOAD_NAME}"
-curl -vL --remote-name "${QT_INSTALLER_URL}"
+download_installer()
+{
+    echo "Downloading the online installer"
+    local QT_INSTALLER_URL="${QT_INSTALLERS_ROOT_URL}/${QT_INSTALLER_DOWNLOAD_NAME}"
+    curl -vL --remote-name "${QT_INSTALLER_URL}"
+}
 
-# Run installer
-echo "Installing Qt"
-
-if [[ "$OSTYPE" == darwin* ]]; then
-    QT_MOUNT_POINT="/Volumes/Qt"
+install_qt_on_mac()
+{
+    local QT_MOUNT_POINT="/Volumes/Qt"
 
     echo "Mounting Qt installer image"
     hdiutil attach "${QT_INSTALLER_DOWNLOAD_NAME}" -mountpoint "${QT_MOUNT_POINT}"
@@ -33,8 +37,27 @@ if [[ "$OSTYPE" == darwin* ]]; then
 
     popd # "${QT_MOUNT_POINT}"
     hdiutil detach "${QT_MOUNT_POINT}"
-fi
+}
 
-if [[ "$OSTYPE" == msys* ]]; then
+install_qt_on_windows()
+{
     "${DIR}/${QT_INSTALLER_DOWNLOAD_NAME}" --verbose --script "${QT_INSTALLER_SCRIPT_FILE}"
-fi
+}
+
+# Run installer
+install_qt()
+{
+    echo "Installing Qt"
+
+    if [[ "$OSTYPE" == darwin* ]]; then
+        install_qt_on_mac
+    fi
+
+    if [[ "$OSTYPE" == msys* ]]; then
+        install_qt_on_windows
+    fi
+}
+
+inject_vars
+download_installer
+install_qt
