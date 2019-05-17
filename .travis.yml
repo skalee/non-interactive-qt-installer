@@ -16,3 +16,4 @@ matrix:
       osx_image: xcode10.2
       env:
         - QT_INSTALLER_DOWNLOAD_NAME="qt-unified-mac-x64-online.dmg"
+        - QT_INSTALLER_VARS="${TRAVIS_BUILD_DIR}/ci/vars_mac.js"

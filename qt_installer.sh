@@ -10,6 +10,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 QT_INSTALLERS_ROOT_URL="http://download.qt.io/official_releases/online_installers"
 QT_INSTALLER_SCRIPT_FILE="${DIR}/control_script.js"
 
+# Inject definitions to the installer script
+echo "Injecting variables to installer control script"
+cat "${QT_INSTALLER_VARS}" | tee -a "${QT_INSTALLER_SCRIPT_FILE}"
+
 # Download Qt installer
 echo "Downloading the online installer"
 QT_INSTALLER_URL="${QT_INSTALLERS_ROOT_URL}/${QT_INSTALLER_DOWNLOAD_NAME}"
