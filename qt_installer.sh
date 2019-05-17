@@ -34,3 +34,7 @@ if [[ "$OSTYPE" == darwin* ]]; then
     popd # "${QT_MOUNT_POINT}"
     hdiutil detach "${QT_MOUNT_POINT}"
 fi
+
+if [[ "$OSTYPE" == msys* ]]; then
+    "${DIR}/${QT_INSTALLER_DOWNLOAD_NAME}" --verbose --script "${QT_INSTALLER_SCRIPT_FILE}"
+fi

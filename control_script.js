@@ -67,6 +67,12 @@ Controller.prototype.LicenseAgreementPageCallback = function() {
     gui.clickButton(buttons.NextButton)
 }
 
+/// Windows-specific, skip it
+Controller.prototype.StartMenuDirectoryPageCallback = function() {
+    logCurrentPage()
+    gui.clickButton(buttons.NextButton)
+}
+
 /// Skip confirmation page
 Controller.prototype.ReadyForInstallationPageCallback = function() {
     logCurrentPage()
