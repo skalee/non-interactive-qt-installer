@@ -49,13 +49,14 @@ install_qt()
 {
     echo "Installing Qt"
 
-    if [[ "$OSTYPE" == darwin* ]]; then
-        install_qt_on_mac
-    fi
-
-    if [[ "$OSTYPE" == msys* ]]; then
-        install_qt_on_windows
-    fi
+    case "$OSTYPE" in
+        darwin*)
+            install_qt_on_mac
+            ;;
+        msys*)
+            install_qt_on_windows
+            ;;
+    esac
 }
 
 inject_vars
