@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Public domain via CC0.
+
 set -e
 
 echo "Obtaining Qt official distribution"

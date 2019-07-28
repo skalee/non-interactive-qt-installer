@@ -1,5 +1,7 @@
 /* jshint asi:true */
 
+// Public domain via CC0.
+
 function Controller() {
     // It tends to complain about XCode, even if all is okay.
     installer.setMessageBoxAutomaticAnswer("XcodeError", QMessageBox.Ok);
