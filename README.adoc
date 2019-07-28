@@ -1,5 +1,97 @@
 = Non-interactive Qt Installer
 
+:online_installers: https://download.qt.io/official_releases/online_installers/
+:updates_win_5123: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5123/Updates.xml
+:qtsdkrepository: https://download.qt.io/online/qtsdkrepository
+
+This repository contains a collection of scripts which automate Qt installation
+from official unified online installers.  It is designed with CI/CD services
+in mind, and tested in Travis CI.
+
+Currently, Windows and MacOS systems are supported, but quite likely a little
+is needed to run these scripts in Linux.  Note that GUI capabilities are
+required -- it's just an automation script, which iterates through install
+wizard screens.
+
+== Usage
+
+Tip: Use `.travis.yml` as an example.
+
+=== Step 1: Choosing online installer
+
+Decide which online installer should be used.  They all are listed here:
+{online_installers}.
+
+=== Step 2: Finding Updates.xml
+
+Obtain identifiers of components which will be installed.  The easiest way to do
+so is to seek them in proper `Updates.xml` file, which is located at URL like:
+
+----
+https://download.qt.io/online/qtsdkrepository/(installer_platform)/desktop/qt5_(version)/Updates.xml
+----
+
+Because of odd naming format, it is suggested to crawl subdirectories starting
+from {qtsdkrepository}.
+
+For example, for Windows installer and Qt 5.12.3, respective `Updates.xml` is
+located at {updates_win_5123}.  Note that `windows_x86` here is matching
+the installer name (`qt-unified-windows-x86-online.exe`), not necessarily
+the target platform architecture -- this file describes packages for x64
+platforms as well.
+
+=== Step 3: Finding package identifiers
+
+The `Updates.xml` files contain identifiers of all packages that online
+installers can handle.
+
+For example, in order to install Qt 5.12.3 on Windows for MSVC 2017 64-bit
+compiler, the appropriate identifier is `qt.qt5.5123.win64_msvc2017_64`,
+as it is defined in {updates_win_5123}.  And for Qt WebEngine package,
+the identifier is `qt.qt5.5123.qtwebengine`.  Note that there is also a package
+`qt.qt5.5123.qtwebengine.win64_msvc2017_64` -- you should skip it, as well as
+any other package which has a non-empty `<AutoDependOn>` element.  These are
+selected automatically, depending on your other choices.
+
+=== Step 4: Creating configuration script
+
+Having learned package identifiers, create a configuration file, which in fact
+is a piece of JavaScript with two global variable definitions:
+`InstallComponents` with a list of package identifiers and `InstallPath` with
+installation path.  For example:
+
+[source,javascript]
+----
+var InstallComponents = [
+    "qt.qt5.5123.win64_msvc2017_64",
+    "qt.qt5.5123.qtwebengine"
+];
+
+var InstallPath = "C:\\Qt";
+----
+
+=== Step 5: Running the script
+
+[source,bash]
+----
+# Online installer file name (from step 1)
+export QT_INSTALLER_DOWNLOAD_NAME="qt-unified-windows-x86-online.exe"
+# Absolute path to configuration file (from step 4)
+export QT_INSTALLER_VARS="/absolute/path/to/configuration/script.js"
+
+./qt_installer.sh
+----
+
+== TODO
+
+* Linux installer.
+* Handle Archived/LTS/Preview releases in online installer (possibly difficult).
+* Handle offline installers.
+* Rewrite in PowerShell, which is available on all target platforms (Windows,
+  Linux, MacOS) without much hassle.
+
+== Legal
+
 Written in 2019 by Sebastian Skałacki
 
 To the extent possible under law, the author(s) have dedicated all copyright and
