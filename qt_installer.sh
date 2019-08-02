@@ -43,7 +43,7 @@ install_qt_on_mac()
 
 install_qt_on_windows()
 {
-    "${DIR}/${QT_INSTALLER_DOWNLOAD_NAME}" --verbose --script "${QT_INSTALLER_SCRIPT_FILE}"
+    "./${QT_INSTALLER_DOWNLOAD_NAME}" --verbose --script "${QT_INSTALLER_SCRIPT_FILE}"
 }
 
 # Run installer
