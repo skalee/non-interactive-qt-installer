@@ -1,5 +1,9 @@
 language: shell
 
+addons:
+  apt:
+    packages: xvfb
+
 env:
   global:
     RUNNER="./qt_installer.sh"
@@ -37,3 +41,11 @@ matrix:
         - QT_INSTALLER_DOWNLOAD_NAME="qt-unified-windows-x86-online.exe"
         - QT_INSTALLER_VARS="${TRAVIS_BUILD_DIR}/ci/vars_win_x86.js"
         - PATH="/c/Qt/5.12.3/msvc2017/bin:${PATH}"
+
+    - os: linux
+      dist: bionic
+      env:
+        - QT_INSTALLER_DOWNLOAD_NAME="qt-unified-linux-x64-online.run"
+        - QT_INSTALLER_VARS="${TRAVIS_BUILD_DIR}/ci/vars_linux.js"
+        - PATH="/opt/Qt/5.12.3/gcc_64/bin:${PATH}"
+        - RUNNER='xvfb-run --auto-servernum --error-file=/dev/stderr ./qt_installer.sh'
