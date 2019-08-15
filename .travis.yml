@@ -1,10 +1,14 @@
 language: shell
 
+env:
+  global:
+    RUNNER="./qt_installer.sh"
+
 before_install:
   - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then npm install -g jshint ; fi
 
 install:
-  - ./qt_installer.sh
+  - ${RUNNER}
 
 script:
   - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then jshint control_script.js ; fi
