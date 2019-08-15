@@ -41,6 +41,12 @@ install_qt_on_mac()
     hdiutil detach "${QT_MOUNT_POINT}"
 }
 
+install_qt_on_linux()
+{
+    chmod o+x "${DIR}/${QT_INSTALLER_DOWNLOAD_NAME}"
+    sudo "${DIR}/${QT_INSTALLER_DOWNLOAD_NAME}" --verbose --script "${QT_INSTALLER_SCRIPT_FILE}"
+}
+
 install_qt_on_windows()
 {
     "./${QT_INSTALLER_DOWNLOAD_NAME}" --verbose --script "${QT_INSTALLER_SCRIPT_FILE}"
@@ -54,6 +60,9 @@ install_qt()
     case "$OSTYPE" in
         darwin*)
             install_qt_on_mac
+            ;;
+        linux*)
+            install_qt_on_linux
             ;;
         msys*)
             install_qt_on_windows

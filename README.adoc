@@ -8,10 +8,10 @@ This repository contains a collection of scripts which automate Qt installation
 from official unified online installers.  It is designed with CI/CD services
 in mind, and tested in Travis CI.
 
-Currently, Windows and MacOS systems are supported, but quite likely a little
-is needed to run these scripts in Linux.  Note that GUI capabilities are
+Windows, MacOS, and Linux systems are supported.  Note that GUI capabilities are
 required -- it's just an automation script, which iterates through install
-wizard screens.
+wizard screens.  That implies that X Window System is needed to run the script
+on Linux.  Xvfb should do the trick on headless servers (see `.travis.yml`).
 
 == Usage
 
@@ -84,7 +84,6 @@ export QT_INSTALLER_VARS="/absolute/path/to/configuration/script.js"
 
 == TODO
 
-* Linux installer.
 * Handle Archived/LTS/Preview releases in online installer (possibly difficult).
 * Handle offline installers.
 * Rewrite in PowerShell, which is available on all target platforms (Windows,
