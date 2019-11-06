@@ -92,3 +92,11 @@ Controller.prototype.FinishedPageCallback = function() {
     page().RunItCheckBox.checked = false
     proceed(buttons.FinishButton)
 }
+
+// Telemetry disabled 
+Controller.prototype.DynamicTelemetryPluginFormCallback = function()
+{
+    var page = gui.pageWidgetByObjectName("DynamicTelemetryPluginForm");
+    page.statisticGroupBox.disableStatisticRadioButton.setChecked(true);
+    gui.clickButton(buttons.NextButton);
+}
