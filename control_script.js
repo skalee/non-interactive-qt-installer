@@ -92,3 +92,12 @@ Controller.prototype.FinishedPageCallback = function() {
     page().RunItCheckBox.checked = false
     proceed(buttons.FinishButton)
 }
+
+/// Question for tracking usage data, refuse it
+Controller.prototype.DynamicTelemetryPluginFormCallback = function() {
+    logCurrentPage()
+    console.log(Object.keys(page().TelemetryPluginForm.statisticGroupBox))
+    var radioButtons = page().TelemetryPluginForm.statisticGroupBox
+    radioButtons.disableStatisticRadioButton.checked = true
+    proceed()
+}
