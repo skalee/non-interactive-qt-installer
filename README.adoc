@@ -1,5 +1,33 @@
 = Non-interactive Qt Installer
 
+**This project is discontinued.**
+
+Since Qt installer https://www.qt.io/blog/qt-offering-changes-2020[requires
+users to sign in], this project no longer works.  Yes, I suppose it can be
+fixed, but I will not do that.
+
+I recommend switching to https://github.com/engnr/qt-downloader[qt-downloader]
+by engnr which simply downloads and extracts packages from Qt repositories,
+eliminating need for using online installer.  At the time I have checked it for
+the last time, it was not capable of installing additional modules (like Web
+Engine), but this is something what can be done easily -- just fork or download
+that script, edit it, remove CLI arguments parsing, and hardcode exactly what
+you want.
+
+If you are using GitHub Actions, you may also take a look at
+https://github.com/jurplel/install-qt-action[install-qt-action] by jurplel.
+It looks very promising.
+
+Moreover, this thread in Qt bug tracker may reveal other approaches:
+https://bugreports.qt.io/browse/QTIFW-166.
+
+Finally, if you see value in online installer scripting, then you can take over
+this project.  Either fork it or contact me via issues.  Be informed though that
+occasionally (let's say, every few months) Qt team updates their installer in
+a way that requires this script to be updated.
+
+'''
+
 :online_installers: https://download.qt.io/official_releases/online_installers/
 :updates_win_5123: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5123/Updates.xml
 :qtsdkrepository: https://download.qt.io/online/qtsdkrepository
